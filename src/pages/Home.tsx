@@ -110,7 +110,11 @@ export default function Services() {
               gradient={false}
               className="text-medium md:text-1xl  mb-16 text-[#fbd8b6] uppercase tracking-wide>
               Transforming Spaces uppercase tracking-wide"
-              style={{ marginTop: -100 }}
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                letterSpacing: "0.3em",
+                marginTop: "-100px",
+              }}
             >
               D&N CRAFT{" "}
               <span className="mx-6 border-l-2 border-[#fbd8b6] h-full"></span>
@@ -135,7 +139,13 @@ export default function Services() {
             </h1>
 
             {/* Subtext */}
-            <p className="text-medium md:text-1xl mb-12 text-[#fbd8b6]">
+            <p
+              className="text-medium md:text-1xl mb-12 text-[#fbd8b6]"
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                letterSpacing: "0.3em",
+              }}
+            >
               INNOVATIVE INTERIORS FOR INSPIRED WORKPLACES
             </p>
 

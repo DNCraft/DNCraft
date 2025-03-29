@@ -30,7 +30,7 @@ export default function LoadingPage({
           }}
         >
           <img
-            src="/loadingpage/D&Nloadimg4.png"
+            src="/loadingpage/D&Nloadimg5.png"
             alt="Front Side"
             className="w-full h-full object-cover "
           />

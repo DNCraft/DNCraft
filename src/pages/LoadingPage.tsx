@@ -57,7 +57,7 @@ export default function LoadingPage({
 
       {/* Tagline */}
       <p
-        className="text-white   tracking-widest uppercase"
+        className="text-white mt-0 mb-6 tracking-widest uppercase"
         style={{
           fontFamily: "'Space Mono', monospace",
           letterSpacing: "0.3em",
@@ -68,7 +68,7 @@ export default function LoadingPage({
 
       {/* Tap to Explore Button */}
       <button
-        className="absolute bottom-10 px-5 py-2 bg-white  text-orange-600  text-base font-semibold rounded-full transition-all duration-300"
+        className="absolute bottom-20 px-5 py-2 bg-white text-orange-600 text-base font-semibold rounded-full transition-all duration-300"
         onClick={handleUnlock}
         style={{
           fontFamily: "'Space Mono', monospace",

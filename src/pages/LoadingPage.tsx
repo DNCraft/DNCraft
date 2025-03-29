@@ -11,7 +11,7 @@ export default function LoadingPage({
   };
 
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center bg-gray-900">
+    <section className="relative w-full h-screen flex flex-col items-center justify-center bg-[#000d46]">
       {/* Flip Animation Wrapper */}
       <motion.div
         className="relative w-[450px] h-[450px] flex items-center justify-center"
@@ -30,7 +30,7 @@ export default function LoadingPage({
           }}
         >
           <img
-            src="/loadingpage/D&Nloadimg1.png"
+            src="/loadingpage/D&Nloadimg4.png"
             alt="Front Side"
             className="w-full h-full object-cover "
           />
@@ -56,16 +56,25 @@ export default function LoadingPage({
       </motion.div>
 
       {/* Tagline */}
-      <p className="text-white text-2xl font-bold mt-6">
+      <p
+        className="text-white   tracking-widest uppercase"
+        style={{
+          fontFamily: "'Space Mono', monospace",
+          letterSpacing: "0.3em",
+        }}
+      >
         Your Dream Space is Just a Click Away! 🏡
       </p>
 
       {/* Tap to Explore Button */}
       <button
-        className="absolute bottom-10 px-5 py-2 bg-white  text-black  text-base font-semibold rounded-full transition-all duration-300"
+        className="absolute bottom-10 px-5 py-2 bg-white  text-orange-600  text-base font-semibold rounded-full transition-all duration-300"
         onClick={handleUnlock}
+        style={{
+          fontFamily: "'Space Mono', monospace",
+        }}
       >
-        Tap to Explore →
+        TAP TO EXPLORE →
       </button>
     </section>
   );

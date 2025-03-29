@@ -343,7 +343,7 @@ function ProjectCard({ project }: any) {
         <h3 className="text-2xl font-bold text-black mb-2 group-hover:text-black transition-colors duration-300">
           {project.title}
         </h3>
-        <span className="text-sm text-black mb-3 block">{project.year}</span>
+        {/* <span className="text-sm text-black mb-3 block">{project.year}</span> */}
         <p className="text-black text-sm leading-relaxed">
           {showFullDescription
             ? project.description

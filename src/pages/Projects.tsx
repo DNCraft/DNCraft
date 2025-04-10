@@ -224,7 +224,7 @@ const clientLogos = [
   { src: "/client-logos/client3.jpg", size: "h-20" }, // Increased size
   { src: "/client-logos/client4.png", size: "h-10" },
   { src: "/client-logos/client5.png", size: "h-40" },
-  { src: "/client-logos/client6.jpg", size: "h-50" },
+  // { src: "/client-logos/client6.jpg", size: "h-50" },
   { src: "/client-logos/client7.png", size: "h-20" },
   { src: "/client-logos/client8.png", size: "h-12" },
 ];

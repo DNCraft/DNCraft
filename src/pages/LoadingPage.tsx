@@ -57,7 +57,7 @@ export default function LoadingPage({
 
       {/* Tagline */}
       <p className="text-white text-2xl font-bold mt-6">
-        Your Dream Space is Just a Click Away! 🏡
+        Your Dream Space is Just a Click Away! 🏢
       </p>
 
       {/* Tap to Explore Button */}

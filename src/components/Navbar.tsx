@@ -63,13 +63,13 @@ export default function Navbar() {
               <motion.span className="absolute inset-0 bg-#01334c" />
 
               {/* Animated Paper Plane Icon with Glow */}
-              <motion.span
+              {/* <motion.span
                 className="mr-1 inline-block text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]"
                 animate={{ x: [0, 5, 0], opacity: [1, 0.8, 1] }}
                 transition={{ duration: 1, repeat: Infinity }}
               >
                 ✈️
-              </motion.span>
+              </motion.span> */}
 
               {/* Text with Brightness & Glow */}
               <span className="text-sm font-bold text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">

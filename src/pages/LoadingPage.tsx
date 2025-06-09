@@ -63,7 +63,7 @@ export default function LoadingPage({
           letterSpacing: "0.3em",
         }}
       >
-        Your Dream Space is Just a Click Away! 🏡
+        Your Dream Space is Just a Click Away! 🏢
       </p>
 
       {/* Tap to Explore Button */}

@@ -1,237 +1,3 @@
-// import { useState } from "react";
-// import { motion } from "framer-motion";
-// import emailjs from "@emailjs/browser";
-
-// export default function Careers() {
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     phone: "",
-//     experience: "",
-//     resume: null as File | null,
-//     resumeLink: "",
-//   });
-
-//   const [message, setMessage] = useState("");
-
-//   const handleChange = (
-//     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-//   ) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0];
-//     if (!file) return;
-
-//     // ✅ Allow only DOCX files
-//     if (
-//       file.type !==
-//       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-//     ) {
-//       setMessage("Invalid file type. Only DOCX files are allowed.");
-//       return;
-//     }
-
-//     const uploadData = new FormData();
-//     uploadData.append("file", file);
-//     uploadData.append("upload_preset", "demo_thiru");
-
-//     try {
-//       const response = await fetch(
-//         "https://api.cloudinary.com/v1_1/dqgfk61lv/upload?resource_type=auto",
-//         {
-//           method: "POST",
-//           body: uploadData,
-//         }
-//       );
-
-//       if (!response.ok) {
-//         throw new Error(
-//           `Cloudinary upload failed with status ${response.status}`
-//         );
-//       }
-
-//       const data = await response.json();
-//       if (data.secure_url) {
-//         const directResumeLink = `${data.secure_url}?response-content-disposition=attachment`;
-
-//         setFormData((prev) => ({
-//           ...prev,
-//           resume: file,
-//           resumeLink: directResumeLink,
-//         }));
-//         setMessage("Resume uploaded successfully!");
-//       } else {
-//         setMessage("Failed to upload resume. Please try again.");
-//       }
-//     } catch (error) {
-//       console.error("Cloudinary upload error:", error);
-//       setMessage("Error uploading resume.");
-//     }
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-
-//     if (
-//       !formData.firstName ||
-//       !formData.lastName ||
-//       !formData.phone ||
-//       !formData.resumeLink
-//     ) {
-//       setMessage("Please fill in all required fields.");
-//       return;
-//     }
-
-//     const emailParams = {
-//       to_name: "Recruiter", // Change this dynamically if needed
-//       from_name: `${formData.firstName} ${formData.lastName}`,
-//       firstName: formData.firstName,
-//       lastName: formData.lastName,
-//       phone: formData.phone,
-//       experience: formData.experience || "No experience provided",
-//       resumeLink: encodeURI(formData.resumeLink),
-//     };
-
-//     try {
-//       await emailjs.send(
-//         "service_7heoxck",
-//         "template_nyjyagh",
-//         emailParams,
-//         "G9fSdPsjxsDadawnX"
-//       );
-
-//       setMessage("Application submitted successfully!");
-
-//       // ✅ Reset form fields
-//       setFormData({
-//         firstName: "",
-//         lastName: "",
-//         phone: "",
-//         experience: "",
-//         resume: null,
-//         resumeLink: "",
-//       });
-
-//       // ✅ Clear file input
-//       const fileInput =
-//         document.querySelector<HTMLInputElement>('input[type="file"]');
-//       if (fileInput) {
-//         fileInput.value = "";
-//       }
-
-//       // ✅ Hide message after 3 seconds
-//       setTimeout(() => setMessage(""), 3000);
-//     } catch (error) {
-//       console.error("Error sending email:", error);
-//       setMessage("Failed to submit application. Please try again.");
-//     }
-//   };
-
-//   return (
-//     <div className="pt-16 bg-white">
-//       <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
-//         <motion.div
-//           initial={{ opacity: 0, y: 20 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.8 }}
-//           className="text-center mb-10"
-//         >
-//           <h1 className="text-4xl font-bold">
-//             Apply for a Career at D&N CRAFT 🚀
-//           </h1>
-//           <p className="text-lg mt-4">
-//             Fill in your details below, attach your resume, and submit your
-//             application.
-//           </p>
-//         </motion.div>
-
-//         <form
-//           onSubmit={handleSubmit}
-//           className="backdrop-blur-xl  border border-white/20 p-8 rounded-2xl shadow-xl"
-//           // style={{ backgroundColor: "#001f3f" }}
-//         >
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//             <div>
-//               <label className="block mb-2 font-medium">First Name *</label>
-//               <input
-//                 type="text"
-//                 name="firstName"
-//                 value={formData.firstName}
-//                 onChange={handleChange}
-//                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20  placeholder-white/70"
-//                 required
-//               />
-//             </div>
-//             <div>
-//               <label className="block mb-2 font-medium">Last Name *</label>
-//               <input
-//                 type="text"
-//                 name="lastName"
-//                 value={formData.lastName}
-//                 onChange={handleChange}
-//                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20  placeholder-white/70"
-//                 required
-//               />
-//             </div>
-//             <div>
-//               <label className="block mb-2 font-medium">Phone Number *</label>
-//               <input
-//                 type="tel"
-//                 name="phone"
-//                 value={formData.phone}
-//                 onChange={handleChange}
-//                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20  placeholder-white/70"
-//                 required
-//               />
-//             </div>
-//             <div>
-//               <label className="block mb-2 font-medium">
-//                 Experience (if any)
-//               </label>
-//               <textarea
-//                 name="experience"
-//                 value={formData.experience}
-//                 onChange={handleChange}
-//                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20  placeholder-white/70"
-//               />
-//             </div>
-//             <div className="col-span-2">
-//               <label className="block mb-2 font-medium">
-//                 Upload Resume (DOCX only) *
-//               </label>
-//               <input
-//                 type="file"
-//                 name="resume"
-//                 accept=".docx"
-//                 onChange={handleFileChange}
-//                 className="w-full p-3 rounded-lg"
-//                 required
-//               />
-//             </div>
-//           </div>
-
-//           <div className="text-center mt-6">
-//             <button
-//               type="submit"
-//               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300"
-//             >
-//               Submit Application
-//             </button>
-//           </div>
-
-//           {message && (
-//             <p className="text-center mt-4 text-lg font-medium text-green-500">
-//               {message}
-//             </p>
-//           )}
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
 import { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
@@ -368,6 +134,13 @@ export default function Careers() {
           Be a part of our dynamic team and grow with us
         </p>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 px-10 max-w-7xl mx-auto mb-20">
+          {/*
+            // 🔥 Growth Opportunities
+            // 👥 Leadership Roles
+            // 🎨 Creative Freedom
+            // 🚀 Career Growth
+            // 🏡 Work-Life Balance
+          */}
           {[
             "🔥 Growth Opportunities",
             "👥 Leadership Roles",
@@ -393,101 +166,101 @@ export default function Careers() {
           ))}
         </div>
 
-        <div className="max-w-11xl mx-auto px-6 sm:px-10 lg:px-16 flex flex-col md:flex-row items-center gap-10 w-full">
-          {/* QuoteCard on the Left */}
-          <div
-            className="relative bg-orange-600 text-white p-12 flex items-center justify-center w-100 "
-            style={{
-              clipPath: "polygon(0% 0%, 85% 0%, 100% 100%, 0% 100%)", // Slanted right side
-              minHeight: "350px",
-              borderTopRightRadius: "80px", // Rounded top-right corner
-              marginTop: "50px", // Moved down
-              borderRadius: "0px", // Added border radius to the whole card
-            }}
-          >
-            {/* Background large quotation marks */}
-            <span className="absolute top-8 right-10 text-[120px] text-orange-400 opacity-30">
-              &ldquo;
-            </span>
-            <span className="absolute bottom-6 right-12 text-[140px] text-orange-400 opacity-30">
-              &rdquo;
-            </span>
-
-            {/* Quote Text */}
-            <div className="max-w-4xl text-left">
-              <img
-                src="/careers/careers1.png"
-                alt="quote"
-                className="w-80 mb-4 mx-auto h-80"
-              />
-
-              <p className="text-1xl md:text-1.8xl font-semibold leading-snug">
-                Find your fire, chase your dreams, and turn your passion into
-                your profession..
-              </p>
-            </div>
-          </div>
-
-          {/* Form on the Right */}
+        <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full md:w-1/2 px-10"
+            className="text-center mb-10"
           >
-            <form className="mt-6 space-y-4">
-              <input
-                type="text"
-                placeholder="Name *"
-                className="w-full p-3 border border-gray-300 rounded-lg"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email Id *"
-                className="w-full p-3 border border-gray-300 rounded-lg"
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Contact No. *"
-                className="w-full p-3 border border-gray-300 rounded-lg"
-                required
-              />
-              {/* <select
-                className="w-full p-3 border border-gray-300 rounded-lg"
-                required
-              >
-                <option value="">Select Department *</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Sales">Sales</option>
-              </select> */}
-              <textarea
-                placeholder="Message *"
-                className="w-full p-3 border border-gray-300 rounded-lg"
-                required
-              />
+            <h1 className="text-4xl font-bold">
+              Apply for a Career at D&N CRAFT 🚀
+            </h1>
+            <p className="text-lg mt-4">
+              Fill in your details below, attach your resume, and submit your
+              application.
+            </p>
+          </motion.div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="backdrop-blur-xl border border-white/20 p-8 rounded-2xl shadow-xl"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
+                <label className="block mb-2 font-medium">First Name *</label>
                 <input
-                  type="file"
-                  accept=".pdf,.doc,.png,.jpg"
-                  className="w-full p-3 border border-gray-300 rounded-lg"
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20 placeholder-white/70"
                   required
                 />
-                <p className="text-sm text-gray-500 mt-1">
-                  Supported formats: <strong>pdf, doc, png, jpg</strong>. <br />
-                  File should not exceed <strong>2MB</strong>.
-                </p>
               </div>
+              <div>
+                <label className="block mb-2 font-medium">Last Name *</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20 placeholder-white/70"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-2 font-medium">Phone Number *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20 placeholder-white/70"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-2 font-medium">
+                  Experience (if any)
+                </label>
+                <textarea
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-white bg-white/20 placeholder-white/70"
+                />
+              </div>
+              <div className="col-span-2">
+                <label className="block mb-2 font-medium">
+                  Upload Resume (DOCX only) *
+                </label>
+                <input
+                  type="file"
+                  name="resume"
+                  accept=".docx"
+                  onChange={handleFileChange}
+                  className="w-full p-3 rounded-lg"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="text-center mt-6">
               <button
                 type="submit"
-                className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300"
               >
-                GET IN TOUCH →
+                Submit Application
               </button>
-            </form>
-          </motion.div>
+            </div>
+
+            {message && (
+              <p className="text-center mt-4 text-lg font-medium text-green-500">
+                {message}
+              </p>
+            )}
+          </form>
         </div>
       </div>
     </div>
